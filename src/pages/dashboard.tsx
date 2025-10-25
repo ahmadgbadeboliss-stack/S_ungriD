@@ -1,6 +1,7 @@
-import { Home, TrendingUp, BarChart3, Activity, Wallet, Battery, DollarSign, Leaf, Zap, Sun, ArrowRight } from "lucide-react";
+import { Home, TrendingUp, BarChart3, Activity, Wallet, Battery, DollarSign, Zap, Sun, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import useWallet from "../hooks/useWallet";
+import SmartContractStats from "../components/SmartContractStats";
 
 export default function DashboardPage() {
   const { walletAddress } = useWallet();
@@ -42,8 +43,13 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Stats Grid */}
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
+          {/* Smart Contract Stats */}
+          <div className="mb-8">
+            <SmartContractStats />
+          </div>
+
+          {/* Additional Stats Grid */}
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-white/80 font-semibold">Energy Balance</h3>
@@ -69,15 +75,6 @@ export default function DashboardPage() {
               </div>
               <div className="text-3xl font-bold text-blue-400 mb-2">47</div>
               <p className="text-white/70 text-sm">Successful transactions</p>
-            </div>
-
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-white/80 font-semibold">CO₂ Saved</h3>
-                <Leaf className="h-6 w-6 text-emerald-400" />
-              </div>
-              <div className="text-3xl font-bold text-emerald-400 mb-2">1.2T</div>
-              <p className="text-white/70 text-sm">Carbon offset contribution</p>
             </div>
           </div>
 
