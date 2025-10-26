@@ -2,6 +2,7 @@ import { Home, TrendingUp, BarChart3, Activity, Wallet, Battery, DollarSign, Zap
 import { useState } from "react";
 import useWallet from "../hooks/useWallet";
 import SmartContractStats from "../components/SmartContractStats";
+import ContractDebugger from "../components/ContractDebugger";
 
 export default function DashboardPage() {
   const { walletAddress } = useWallet();
@@ -41,6 +42,11 @@ export default function DashboardPage() {
                 <span className="text-green-400 text-sm font-medium">Connected</span>
               </div>
             </div>
+          </div>
+
+          {/* Contract Debugger */}
+          <div className="mb-8">
+            <ContractDebugger />
           </div>
 
           {/* Smart Contract Stats */}
