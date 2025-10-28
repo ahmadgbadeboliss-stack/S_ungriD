@@ -1,0 +1,166 @@
+import { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
+import contractsData from '../contracts/contracts.json';
+import SunGridRewardsABI from '../contracts/abis/SunGridRewards.json';
+
+interface UserStats {
+  totalEnergyProduced: string;
+  totalEnergyTraded: string;
+  carbonCredits: string;
+  ecoPoints: string;
+}
+
+interface ContractData {
+  isConnected: boolean;
+  provider: ethers.providers.Web3Provider | null;
+  signer: ethers.Signer | null;
+  rewardsContract: ethers.Contract | null;
+  userStats: UserStats | null;
+  loading: boolean;
+  error: string | null;
+}
+
+export default function useContracts() {
+  const [contractData, setContractData] = useState<ContractData>({
+    isConnected: false,
+    provider: null,
+    signer: null,
+    rewardsContract: null,
+    userStats: null,
+    loading: false,
+    error: null
+  });
+
+  const connectWallet = async () => {
+    try {
+      setContractData(prev => ({ ...prev, loading: true, error: null }));
+
+      if (typeof window.ethereum !== 'undefined') {
+        // Request account access
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        
+        // Create provider and signer
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        
+        // Get user address
+        const address = await signer.getAddress();
+        
+        // Create contract instance
+        const rewardsContract = new ethers.Contract(
+          contractsData.contracts.SunGridRewards.address,
+          SunGridRewardsABI,
+          signer
+        );
+
+        // Get user stats
+        const stats = await rewardsContract.getUserStats(address);
+        const userStats: UserStats = {
+          totalEnergyProduced: ethers.utils.formatEther(stats.totalEnergyProduced),
+          totalEnergyTraded: ethers.utils.formatEther(stats.totalEnergyTraded),
+          carbonCredits: ethers.utils.formatEther(stats.carbonCredits),
+          ecoPoints: ethers.utils.formatEther(stats.ecoPoints)
+        };
+
+        setContractData({
+          isConnected: true,
+          provider,
+          signer,
+          rewardsContract,
+          userStats,
+          loading: false,
+          error: null
+        });
+
+        return { success: true, address };
+      } else {
+        throw new Error('MetaMask not detected');
+      }
+    } catch (error: any) {
+      setContractData(prev => ({
+        ...prev,
+        loading: false,
+        error: error.message || 'Failed to connect wallet'
+      }));
+      return { success: false, error: error.message };
+    }
+  };
+
+  const updateUserStats = async (energyAmount: number) => {
+    try {
+      if (!contractData.rewardsContract || !contractData.signer) {
+        throw new Error('Contract not connected');
+      }
+
+      setContractData(prev => ({ ...prev, loading: true, error: null }));
+
+      const tx = await contractData.rewardsContract.updateUserStats(
+        ethers.utils.parseEther(energyAmount.toString())
+      );
+      
+      await tx.wait();
+
+      // Refresh user stats
+      const address = await contractData.signer.getAddress();
+      const stats = await contractData.rewardsContract.getUserStats(address);
+      const userStats: UserStats = {
+        totalEnergyProduced: ethers.utils.formatEther(stats.totalEnergyProduced),
+        totalEnergyTraded: ethers.utils.formatEther(stats.totalEnergyTraded),
+        carbonCredits: ethers.utils.formatEther(stats.carbonCredits),
+        ecoPoints: ethers.utils.formatEther(stats.ecoPoints)
+      };
+
+      setContractData(prev => ({
+        ...prev,
+        userStats,
+        loading: false,
+        error: null
+      }));
+
+      return { success: true, tx };
+    } catch (error: any) {
+      setContractData(prev => ({
+        ...prev,
+        loading: false,
+        error: error.message || 'Failed to update stats'
+      }));
+      return { success: false, error: error.message };
+    }
+  };
+
+  const getCarbonOffset = async (userAddress: string) => {
+    try {
+      if (!contractData.rewardsContract) {
+        throw new Error('Contract not connected');
+      }
+
+      const carbonOffset = await contractData.rewardsContract.calculateCarbonOffset(userAddress);
+      return ethers.utils.formatEther(carbonOffset);
+    } catch (error: any) {
+      console.error('Error getting carbon offset:', error);
+      return '0';
+    }
+  };
+
+  const disconnect = () => {
+    setContractData({
+      isConnected: false,
+      provider: null,
+      signer: null,
+      rewardsContract: null,
+      userStats: null,
+      loading: false,
+      error: null
+    });
+  };
+
+  return {
+    ...contractData,
+    connectWallet,
+    updateUserStats,
+    getCarbonOffset,
+    disconnect,
+    contracts: contractsData.contracts
+  };
+}
+

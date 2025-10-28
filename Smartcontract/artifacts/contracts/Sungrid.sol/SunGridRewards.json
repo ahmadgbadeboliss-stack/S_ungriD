@@ -1,0 +1,350 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "SunGridRewards",
+  "sourceName": "contracts/Sungrid.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_energyTokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_marketplaceAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "CarbonCreditsIssued",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "EcoPointsAwarded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "carbonCredits",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "ecoPoints",
+          "type": "uint256"
+        }
+      ],
+      "name": "RewardsClaimed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "calculateCarbonOffset",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "carbonCreditRate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ecoPointsRate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "energyToken",
+      "outputs": [
+        {
+          "internalType": "contract SunGridEnergyToken",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "getUserStats",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "totalEnergyProduced",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalEnergyTraded",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "carbonCredits",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "ecoPoints",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastRewardClaim",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct SunGridRewards.UserStats",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "marketplace",
+      "outputs": [
+        {
+          "internalType": "contract SunGridMarketplace",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "producer",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "kWhAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "recordEnergyProduction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "kWhAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "recordTrade",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newCarbonRate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "newEcoRate",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateRewardRates",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "userStats",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "totalEnergyProduced",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalEnergyTraded",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "carbonCredits",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "ecoPoints",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lastRewardClaim",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080346100c257601f61076938819003918201601f19168301916001600160401b038311848410176100c75780849260409485528339810103126100c257610052602061004b836100dd565b92016100dd565b6001600455600a60055560018060a01b03908160018060a01b0319931683600054161760005516816001541617600155339060025416176002556040513360007f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08180a361067790816100f28239f35b600080fd5b634e487b7160e01b600052604160045260246000fd5b51906001600160a01b03821682036100c25756fe6040608081526004908136101561001557600080fd5b600091823560e01c806310fce2851461056157806320b4bb77146105425780634e43603a146104985780634ec7fb81146104705780635786ed071461036c57806364e6a3a41461028c57806371e409251461022a5780638a65d874146101c85780638da5cb5b1461019f578063abc8c7af14610172578063f2fde38b146100c55763fd0223c5146100a557600080fd5b346100c157826003193601126100c15760209250549051908152f35b8280fd5b50346100c15760203660031901126100c1576100df610594565b6002546001600160a01b038082169391926100fb3386146105af565b1693841561013b5750506001600160a01b03191682176002557f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08380a380f35b906020606492519162461bcd60e51b8352820152601160248201527024b73b30b634b2103732bb9037bbb732b960791b6044820152fd5b50503461019b578160031936011261019b5760015490516001600160a01b039091168152602090f35b5080fd5b50503461019b578160031936011261019b5760025490516001600160a01b039091168152602090f35b5090346100c15760203660031901126100c15760a09281906001600160a01b036101f0610594565b1681526003602052208054926001820154926002830154916003840154930154938151958652602086015284015260608301526080820152f35b5091903461019b57602036600319011261019b576001600160a01b0361024e610594565b168252600360205280822054916101f492838102938185041490151715610279576020838351908152f35b634e487b7160e01b815260118452602490fd5b5090346100c157806003193601126100c1576102a6610594565b8354602435936001600160a01b03929183163303610333575090600a91169283855260036020528285206102db8282546105e8565b90550490816102e8578380f35b7ffb734c7986453c82477e06d932687aa0fa463124eafe9a84552d34ae518e3fca91602091848652600383526002818720016103258382546105e8565b905551908152a23880808380f35b606490602085519162461bcd60e51b8352820152601360248201527213db9b1e481d1bdad95b8818dbdb9d1c9858dd606a1b6044820152fd5b5090346100c15760603660031901126100c157610387610594565b906001600160a01b036024358181160361046c57604435928160015416330361043657169283855260036020526001828620016103c58482546105e8565b90556005549283810293818504149015171561042357507f8c5f60add7f68604b507d6a992213907f6bf291d5484ce1b3cace0405ff8e3a491602091848652600383526003818720016104198382546105e8565b905551908152a280f35b634e487b7160e01b855260119052602484fd5b825162461bcd60e51b8152602081870152601060248201526f4f6e6c79206d61726b6574706c61636560801b6044820152606490fd5b8480fd5b50503461019b578160031936011261019b57905490516001600160a01b039091168152602090f35b5090346100c15760203660031901126100c1578060a0936104b7610594565b8160806104c261060b565b82815282602082015282868201528260608201520152600180871b031681526003602052206104ef61060b565b918154938484526001830154602085019081526080600285015492848701938452600386015495606088019687520154950194855282519586525160208601525190840152516060830152516080820152f35b50503461019b578160031936011261019b576020906005549051908152f35b5090346100c15736600319011261019b5761058760018060a01b036002541633146105af565b8035905560243560055580f35b600435906001600160a01b03821682036105aa57565b600080fd5b156105b657565b60405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b6044820152606490fd5b919082018092116105f557565b634e487b7160e01b600052601160045260246000fd5b6040519060a0820182811067ffffffffffffffff82111761062b57604052565b634e487b7160e01b600052604160045260246000fdfea2646970667358221220a0b718b5b22d8d42f21cdbaff658d8f6d3d05c14238671fb5532d978738b671564736f6c63430008140033",
+  "deployedBytecode": "0x6040608081526004908136101561001557600080fd5b600091823560e01c806310fce2851461056157806320b4bb77146105425780634e43603a146104985780634ec7fb81146104705780635786ed071461036c57806364e6a3a41461028c57806371e409251461022a5780638a65d874146101c85780638da5cb5b1461019f578063abc8c7af14610172578063f2fde38b146100c55763fd0223c5146100a557600080fd5b346100c157826003193601126100c15760209250549051908152f35b8280fd5b50346100c15760203660031901126100c1576100df610594565b6002546001600160a01b038082169391926100fb3386146105af565b1693841561013b5750506001600160a01b03191682176002557f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08380a380f35b906020606492519162461bcd60e51b8352820152601160248201527024b73b30b634b2103732bb9037bbb732b960791b6044820152fd5b50503461019b578160031936011261019b5760015490516001600160a01b039091168152602090f35b5080fd5b50503461019b578160031936011261019b5760025490516001600160a01b039091168152602090f35b5090346100c15760203660031901126100c15760a09281906001600160a01b036101f0610594565b1681526003602052208054926001820154926002830154916003840154930154938151958652602086015284015260608301526080820152f35b5091903461019b57602036600319011261019b576001600160a01b0361024e610594565b168252600360205280822054916101f492838102938185041490151715610279576020838351908152f35b634e487b7160e01b815260118452602490fd5b5090346100c157806003193601126100c1576102a6610594565b8354602435936001600160a01b03929183163303610333575090600a91169283855260036020528285206102db8282546105e8565b90550490816102e8578380f35b7ffb734c7986453c82477e06d932687aa0fa463124eafe9a84552d34ae518e3fca91602091848652600383526002818720016103258382546105e8565b905551908152a23880808380f35b606490602085519162461bcd60e51b8352820152601360248201527213db9b1e481d1bdad95b8818dbdb9d1c9858dd606a1b6044820152fd5b5090346100c15760603660031901126100c157610387610594565b906001600160a01b036024358181160361046c57604435928160015416330361043657169283855260036020526001828620016103c58482546105e8565b90556005549283810293818504149015171561042357507f8c5f60add7f68604b507d6a992213907f6bf291d5484ce1b3cace0405ff8e3a491602091848652600383526003818720016104198382546105e8565b905551908152a280f35b634e487b7160e01b855260119052602484fd5b825162461bcd60e51b8152602081870152601060248201526f4f6e6c79206d61726b6574706c61636560801b6044820152606490fd5b8480fd5b50503461019b578160031936011261019b57905490516001600160a01b039091168152602090f35b5090346100c15760203660031901126100c1578060a0936104b7610594565b8160806104c261060b565b82815282602082015282868201528260608201520152600180871b031681526003602052206104ef61060b565b918154938484526001830154602085019081526080600285015492848701938452600386015495606088019687520154950194855282519586525160208601525190840152516060830152516080820152f35b50503461019b578160031936011261019b576020906005549051908152f35b5090346100c15736600319011261019b5761058760018060a01b036002541633146105af565b8035905560243560055580f35b600435906001600160a01b03821682036105aa57565b600080fd5b156105b657565b60405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b6044820152606490fd5b919082018092116105f557565b634e487b7160e01b600052601160045260246000fd5b6040519060a0820182811067ffffffffffffffff82111761062b57604052565b634e487b7160e01b600052604160045260246000fdfea2646970667358221220a0b718b5b22d8d42f21cdbaff658d8f6d3d05c14238671fb5532d978738b671564736f6c63430008140033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

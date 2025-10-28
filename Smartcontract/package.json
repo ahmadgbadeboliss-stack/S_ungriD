@@ -1,0 +1,13 @@
+{
+  "name": "Sun grid",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@ethereum-sourcify/lib-sourcify": "^1.8.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.26.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "forge-std": "^1.1.2"
+  }
+}
