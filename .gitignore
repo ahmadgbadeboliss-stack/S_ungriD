@@ -19,3 +19,4 @@
 
 # Hardhat coverage reports
 /coverage
+.DS_Store
