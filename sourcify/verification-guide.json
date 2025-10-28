@@ -1,0 +1,50 @@
+{
+  "title": "SunGrid Contracts Sourcify Verification",
+  "network": "Hedera Testnet",
+  "chainId": 296,
+  "sourcifyUrl": "https://verify.hashscan.io/",
+  "contracts": [
+    {
+      "name": "SunGridEnergyToken",
+      "address": "0xa0B0cbaf2ecA245dE0599E30E60Ef8aa69344a0a",
+      "metadataFile": "SunGridEnergyToken-metadata.json",
+      "constructorArgs": []
+    },
+    {
+      "name": "SunGridMarketplace",
+      "address": "0xD1aE883D8921c1Eb1Bf79F646D9d65c805A5cC9E",
+      "metadataFile": "SunGridMarketplace-metadata.json",
+      "constructorArgs": [
+        "0xa0B0cbaf2ecA245dE0599E30E60Ef8aa69344a0a"
+      ]
+    },
+    {
+      "name": "SunGridRewards",
+      "address": "0x69345fD666Fc2F3965D50b054f4B59AdFf6306ee",
+      "metadataFile": "SunGridRewards-metadata.json",
+      "constructorArgs": [
+        "0xa0B0cbaf2ecA245dE0599E30E60Ef8aa69344a0a",
+        "0xD1aE883D8921c1Eb1Bf79F646D9d65c805A5cC9E"
+      ]
+    }
+  ],
+  "steps": [
+    "1. Visit https://verify.hashscan.io/",
+    "2. For each contract:",
+    "   a) Enter the contract address",
+    "   b) Upload the source code (Sungrid.sol)",
+    "   c) Upload the corresponding metadata file",
+    "   d) Select 'Hedera Testnet' as the network",
+    "   e) Click 'Verify Contract'",
+    "3. Wait for verification to complete",
+    "4. Check Hashscan to confirm verification status"
+  ],
+  "files": {
+    "sourceCode": "Sungrid.sol",
+    "metadataFiles": [
+      "SunGridEnergyToken-metadata.json",
+      "SunGridMarketplace-metadata.json",
+      "SunGridRewards-metadata.json"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "network": "hederaTestnet",
+  "chainId": 296,
+  "deployer": "0x95e1CF9174AbD55E47b9EDa1b3f0F2ba0f4369a0",
+  "timestamp": "2025-10-25T11:20:26.417Z",
+  "contracts": {
+    "SunGridEnergyToken": {
+      "address": "0xa0B0cbaf2ecA245dE0599E30E60Ef8aa69344a0a",
+      "transactionHash": "0x470f0caec5e57855c6abcdf46f60ce298ab899896d1f1d3169e9e9ca603d448e",
+      "name": "SunGrid Energy Token",
+      "symbol": "SET",
+      "decimals": 18
+    },
+    "SunGridMarketplace": {
+      "address": "0xD1aE883D8921c1Eb1Bf79F646D9d65c805A5cC9E",
+      "transactionHash": "0x39f75d3877b1c4de0c153d3c21141fb203ac395dfd7c9cc463bf153a8d130f26",
+      "platformFee": "0.25%",
+      "tokenAddress": "0xa0B0cbaf2ecA245dE0599E30E60Ef8aa69344a0a"
+    },
+    "SunGridRewards": {
+      "address": "0x69345fD666Fc2F3965D50b054f4B59AdFf6306ee",
+      "transactionHash": "0x506362c92abc9b9d2754d94e28dded644acc24d1e35dc9956e8dbc83dcbc7780",
+      "tokenAddress": "0xa0B0cbaf2ecA245dE0599E30E60Ef8aa69344a0a",
+      "marketplaceAddress": "0xD1aE883D8921c1Eb1Bf79F646D9d65c805A5cC9E"
+    }
+  },
+  "explorer": {
+    "token": "https://hashscan.io/testnet/contract/0xa0B0cbaf2ecA245dE0599E30E60Ef8aa69344a0a",
+    "marketplace": "https://hashscan.io/testnet/contract/0xD1aE883D8921c1Eb1Bf79F646D9d65c805A5cC9E",
+    "rewards": "https://hashscan.io/testnet/contract/0x69345fD666Fc2F3965D50b054f4B59AdFf6306ee"
+  }
+}
