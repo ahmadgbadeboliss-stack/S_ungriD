@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ethers } from 'ethers';
 import contractsData from '../contracts/contracts.json';
 import SunGridRewardsABI from '../contracts/abis/SunGridRewards.json';
