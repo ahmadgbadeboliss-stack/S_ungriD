@@ -1,9 +1,27 @@
 import { Search, Shield, Sun, Star, CheckCircle, MapPin } from "lucide-react";
 import { useState } from "react";
+import useContracts from "../hooks/useContracts";
 
 export default function MarketplacePage() {
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const { isConnected, connectWallet, calculateMarketplacePrice, buyEnergy } = useContracts();
+  const [processingId, setProcessingId] = useState<number | null>(null);
+
+  const handleBuy = async (id: number) => {
+    try {
+      setProcessingId(id);
+      const { totalPrice } = await calculateMarketplacePrice(id);
+      await buyEnergy(
+        id,
+        '0x0000000000000000000000000000000000000000000000000000000000000000'
+      );
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setProcessingId(null);
+    }
+  };
 
   const listings = [
     { id: 1, seller: '0.0.123456', amount: '50 kWh', price: '0.15', location: 'Lagos, Nigeria', rating: 4.8, verified: true },
@@ -58,6 +76,17 @@ export default function MarketplacePage() {
             </div>
           </div>
 
+          {/* {!isConnected && (
+            <div className="mb-4">
+              <button
+                onClick={connectWallet}
+                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all"
+              >
+                Connect Wallet
+              </button>
+            </div>
+          )} */}
+
           {/* Listings */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {listings.map(listing => (
@@ -97,8 +126,12 @@ export default function MarketplacePage() {
                   </div>
                 </div>
 
-                <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black py-3 rounded-lg font-bold hover:shadow-lg transition-all transform hover:scale-105">
-                  Buy Energy
+                <button
+                  onClick={() => handleBuy(listing.id)}
+                  disabled={!isConnected || processingId === listing.id}
+                  className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black py-3 rounded-lg font-bold hover:shadow-lg transition-all transform hover:scale-105 disabled:opacity-50"
+                >
+                  {processingId === listing.id ? 'Processing...' : 'Buy Energy'}
                 </button>
               </div>
             ))}
